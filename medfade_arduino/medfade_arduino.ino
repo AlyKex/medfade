@@ -4,6 +4,9 @@
 #include <Adafruit_BNO055.h>
 #include <utility/imumaths.h>
 
+
+String acccheck = "kr";
+
 uint16_t BNO055_SAMPLERATE_DELAY_MS = 100;
 
 Adafruit_BNO055 bno = Adafruit_BNO055(55, 0x28);
@@ -47,7 +50,7 @@ void loop() {
 
 
   printEvent(&accelerometerData);
- //printEvent(&linearAccelData);
+  //SprintEvent(&linearAccelData);
   
   uint8_t system, gyro, accel, mag = 0;
   bno.getCalibration(&system, &gyro, &accel, &mag);
@@ -76,6 +79,7 @@ void printEvent(sensors_event_t* event) {
     x = event->acceleration.x;
     y = event->acceleration.y;
     z = event->acceleration.z;
+    acccheck = "lb";
   }
   else if (event->type == SENSOR_TYPE_ORIENTATION) {
     Serial.print("Orientierung/Winkel:\n");
@@ -106,6 +110,7 @@ void printEvent(sensors_event_t* event) {
     x = event->acceleration.x;
     y = event->acceleration.y;
     z = event->acceleration.z;
+    acccheck = "lk";
   }
   else if (event->type == SENSOR_TYPE_GRAVITY) {
     Serial.print("Erdbeschleunigung:\n");
@@ -117,8 +122,8 @@ void printEvent(sensors_event_t* event) {
     Serial.print("Unk:");
   }
 
-  
-  Serial.print(x); Serial.print(";");
+  Serial.print(acccheck); Serial.print(";");
+  Serial.print(x);Serial.print(";");
   Serial.print(y);Serial.print(";");
   Serial.println(z);
 }
