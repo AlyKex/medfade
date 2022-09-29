@@ -7,7 +7,7 @@
 
 String acccheck = "kr";
 
-uint16_t BNO055_SAMPLERATE_DELAY_MS = 100;
+uint16_t BNO055_SAMPLERATE_DELAY_MS = 1;
 
 Adafruit_BNO055 bno = Adafruit_BNO055(55, 0x28);
 
@@ -50,7 +50,7 @@ void loop() {
 
 
   printEvent(&accelerometerData);
-  //SprintEvent(&linearAccelData);
+  printEvent(&linearAccelData);
   
   uint8_t system, gyro, accel, mag = 0;
   bno.getCalibration(&system, &gyro, &accel, &mag);
@@ -122,10 +122,10 @@ void printEvent(sensors_event_t* event) {
     Serial.print("Unk:");
   }
 
-  Serial.print(acccheck); Serial.print(";");
-  Serial.print(x);Serial.print(";");
-  Serial.print(y);Serial.print(";");
-  Serial.println(z);
+  Serial.print(acccheck); Serial.print(" ");
+  Serial.print(x, 2); Serial.print(" ");
+  Serial.print(y, 2); Serial.print(" ");
+  Serial.println(z, 2);
 }
 
 /*

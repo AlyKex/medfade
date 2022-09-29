@@ -2,20 +2,24 @@
 import serial
 import matplotlib.pyplot as plt
 import time
+import sys
 
 
 def readserport():
-    datasave1 = []
-    datasave2 = []
-    datasave3 = []
 
-    while len(data_lin_z) < 10:
+    for i in range(1):
+
         sensvalraw = ser.readline()
+        bin_test.append(sensvalraw)
 
         sensvalstring = sensvalraw.decode()
+        bin_test1.append(sensvalstring)
 
+        sensvalstrip = sensvalstring.strip()
+        bin_test2.append(sensvalstrip)
 
-        sensvalsplit = sensvalstring.split(';')
+        sensvalsplit = sensvalstring.split()
+        bin_test3.append(sensvalsplit)
 
         if "lb" in sensvalsplit:
             del sensvalsplit[0]
@@ -24,11 +28,13 @@ def readserport():
             data_lin_z.append(float(sensvalsplit[2]))
 
 
-        elif "lk" in sensvalsplit:
+        if "lk" in sensvalsplit:
             del sensvalsplit[0]
             data_lin_kor_x.append(float(sensvalsplit[0]))
             data_lin_kor_y.append(float(sensvalsplit[1]))
             data_lin_kor_z.append(float(sensvalsplit[2]))
+
+
 
 
 
@@ -42,7 +48,14 @@ data_lin_kor_x = []
 data_lin_kor_y = []
 data_lin_kor_z = []
 
-ser = serial.Serial(port='COM4', baudrate=2000000, timeout=2)
+bin_test = []
+bin_test1 = []
+bin_test2 = []
+bin_test3 = []
+
+
+
+ser = serial.Serial(port='COM3', baudrate=2000000, timeout=2)
 
 sensvalraw = ser.readline()
 
@@ -71,7 +84,13 @@ plt.plot(data_lin_kor_z)
 
 
 
-plt.show()
+#plt.show()
 
 
 print(end - start)
+print(bin_test)
+print(sys.getsizeof(bin_test))
+
+print(bin_test1)
+print(bin_test2)
+print(bin_test3)
