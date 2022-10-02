@@ -9,6 +9,7 @@ String acccheck = "kr";
 
 uint16_t BNO055_SAMPLERATE_DELAY_MS = 1;
 
+
 Adafruit_BNO055 bno = Adafruit_BNO055(55, 0x28);
 
 
@@ -122,10 +123,12 @@ void printEvent(sensors_event_t* event) {
     Serial.print("Unk:");
   }
 
-  Serial.print(acccheck); Serial.print(" ");
-  Serial.print(x, 2); Serial.print(" ");
-  Serial.print(y, 2); Serial.print(" ");
-  Serial.println(z, 2);
+  size_t s = 0;
+  s += Serial.print(acccheck); s += Serial.print(" ");
+  s += Serial.print(x, 2); s += Serial.print(" ");
+  s += Serial.print(y, 2); s += Serial.print(" ");
+  s += Serial.println(z, 2);
+  //Serial.print("Size: "); Serial.println(s);
 }
 
 /*

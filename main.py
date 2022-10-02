@@ -5,21 +5,38 @@ import time
 import sys
 
 
+#todo:
+# --> Dantenerkennung
+# tiefpass
+# ableitungsfilter
+# threshhold setzen
+# -
+# --> Datenteilung
+# anderes keyword
+# -
+# --> Datenspeichern
+# CSV?
+# -
+
+
+
+
 def readserport():
 
-    for i in range(1):
+    for i in range(10000):
 
         sensvalraw = ser.readline()
-        bin_test.append(sensvalraw)
+        #bin_test.append(sensvalraw)
 
         sensvalstring = sensvalraw.decode()
-        bin_test1.append(sensvalstring)
+        #bin_test1.append(sensvalstring)
 
         sensvalstrip = sensvalstring.strip()
-        bin_test2.append(sensvalstrip)
+        #bin_test2.append(sensvalstrip)
 
         sensvalsplit = sensvalstring.split()
-        bin_test3.append(sensvalsplit)
+        #bin_test3.append(sensvalsplit)
+
 
         if "lb" in sensvalsplit:
             del sensvalsplit[0]
@@ -82,15 +99,15 @@ plt.subplot(212)
 plt.ylim(-15, 15)
 plt.plot(data_lin_kor_z)
 
-
-
-#plt.show()
-
-
 print(end - start)
-print(bin_test)
-print(sys.getsizeof(bin_test))
 
-print(bin_test1)
-print(bin_test2)
-print(bin_test3)
+plt.show()
+
+
+
+#print(bin_test)
+#print(sys.getsizeof(bin_test))
+
+#print(bin_test1)
+#print(bin_test2)
+#print(bin_test3)
