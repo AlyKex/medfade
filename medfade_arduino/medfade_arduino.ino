@@ -41,21 +41,23 @@ void loop() {
   bno.getEvent(&gravityData, Adafruit_BNO055::VECTOR_GRAVITY);
 
 /*
-  printEvent(&orientationData);
-  printEvent(&angVelocityData);
+
   
   printEvent(&magnetometerData);
   
   printEvent(&gravityData);
 */
 
-
+  printEvent(&orientationData);
+  printEvent(&angVelocityData);
   printEvent(&accelerometerData);
   printEvent(&linearAccelData);
-  
+
+
+  /*
   uint8_t system, gyro, accel, mag = 0;
   bno.getCalibration(&system, &gyro, &accel, &mag);
-  /*
+  
   Serial.println();
   Serial.print("Calibration: Sys=");
   Serial.print(system);
@@ -67,9 +69,9 @@ void loop() {
   Serial.println(mag);
 
   Serial.println("--");
-  */
-  delay(BNO055_SAMPLERATE_DELAY_MS);
   
+  delay(BNO055_SAMPLERATE_DELAY_MS);
+  */
 
 }
 
@@ -83,10 +85,11 @@ void printEvent(sensors_event_t* event) {
     acccheck = "lb";
   }
   else if (event->type == SENSOR_TYPE_ORIENTATION) {
-    Serial.print("Orientierung/Winkel:\n");
+    //Serial.print("Orientierung/Winkel:\n");
     x = event->orientation.x;
     y = event->orientation.y;
     z = event->orientation.z;
+    acccheck = "ow";
   }
   else if (event->type == SENSOR_TYPE_MAGNETIC_FIELD) {
     Serial.print("Magnetometer:\n");
@@ -95,10 +98,11 @@ void printEvent(sensors_event_t* event) {
     z = event->magnetic.z;
   }
   else if (event->type == SENSOR_TYPE_GYROSCOPE) {
-    Serial.print("winkelbeschleunigung:\n");
+    //Serial.print("winkelbeschleunigung:\n");
     x = event->gyro.x;
     y = event->gyro.y;
     z = event->gyro.z;
+    acccheck = "wb";
   }
   else if (event->type == SENSOR_TYPE_ROTATION_VECTOR) {
     Serial.print("Rot:\n");

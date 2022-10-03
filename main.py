@@ -23,19 +23,15 @@ import sys
 
 def readserport():
 
-    for i in range(10000):
+    for i in range(1000*4):
 
         sensvalraw = ser.readline()
-        #bin_test.append(sensvalraw)
 
         sensvalstring = sensvalraw.decode()
-        #bin_test1.append(sensvalstring)
 
         sensvalstrip = sensvalstring.strip()
-        #bin_test2.append(sensvalstrip)
 
         sensvalsplit = sensvalstring.split()
-        #bin_test3.append(sensvalsplit)
 
 
         if "lb" in sensvalsplit:
@@ -51,6 +47,18 @@ def readserport():
             data_lin_kor_y.append(float(sensvalsplit[1]))
             data_lin_kor_z.append(float(sensvalsplit[2]))
 
+        if "wb" in sensvalsplit:
+            del sensvalsplit[0]
+            data_ang_x.append(float(sensvalsplit[0]))
+            data_ang_y.append(float(sensvalsplit[1]))
+            data_ang_z.append(float(sensvalsplit[2]))
+
+        if "ow" in sensvalsplit:
+            del sensvalsplit[0]
+            data_orient_grad_x.append(float(sensvalsplit[0]))
+            data_orient_grad_y.append(float(sensvalsplit[1]))
+            data_orient_grad_z.append(float(sensvalsplit[2]))
+
 
 
 
@@ -65,14 +73,21 @@ data_lin_kor_x = []
 data_lin_kor_y = []
 data_lin_kor_z = []
 
-bin_test = []
-bin_test1 = []
-bin_test2 = []
-bin_test3 = []
+data_orient_grad_x = []
+data_orient_grad_y = []
+data_orient_grad_z = []
+
+data_ang_x = []
+data_ang_y = []
+data_ang_z = []
 
 
 
-ser = serial.Serial(port='COM3', baudrate=2000000, timeout=2)
+
+
+
+
+ser = serial.Serial(port='COM4', baudrate=2000000, timeout=2)
 
 sensvalraw = ser.readline()
 
@@ -91,23 +106,20 @@ ser.close()
 
 
 plt.figure()
-plt.subplot(211)
-plt.ylim(0, 15)
-plt.plot(data_lin_z)
+plt.subplot(311)
+plt.ylim(-15, 15)
+plt.plot(data_lin_kor_x)
 
-plt.subplot(212)
+plt.subplot(312)
+plt.ylim(-15, 15)
+plt.plot(data_lin_kor_y)
+
+plt.subplot(313)
 plt.ylim(-15, 15)
 plt.plot(data_lin_kor_z)
 
 print(end - start)
 
+
+
 plt.show()
-
-
-
-#print(bin_test)
-#print(sys.getsizeof(bin_test))
-
-#print(bin_test1)
-#print(bin_test2)
-#print(bin_test3)
