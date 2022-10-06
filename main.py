@@ -3,6 +3,8 @@ import serial
 import matplotlib.pyplot as plt
 import time
 import sys
+import csv
+import fct_def
 
 
 #todo:
@@ -18,21 +20,19 @@ import sys
 # CSV?
 # -
 
-
+sensvalstrip_save = []
 
 
 def readserport():
-
-    for i in range(1000*4):
+    for i in range(500*4):
 
         sensvalraw = ser.readline()
-
         sensvalstring = sensvalraw.decode()
-
         sensvalstrip = sensvalstring.strip()
 
-        sensvalsplit = sensvalstring.split()
+        sensvalstrip_save.append(sensvalstrip)
 
+        sensvalsplit = sensvalstrip.split()
 
         if "lb" in sensvalsplit:
             del sensvalsplit[0]
@@ -59,67 +59,29 @@ def readserport():
             data_orient_grad_y.append(float(sensvalsplit[1]))
             data_orient_grad_z.append(float(sensvalsplit[2]))
 
+data_lin_x ,data_lin_y, data_lin_z = [], [], []
 
+data_lin_kor_x, data_lin_kor_y, data_lin_kor_z = [], [], []
 
+data_orient_grad_x, data_orient_grad_y, data_orient_grad_z = [], [], []
 
-
-
-
-data_lin_x = []
-data_lin_y = []
-data_lin_z = []
-
-data_lin_kor_x = []
-data_lin_kor_y = []
-data_lin_kor_z = []
-
-data_orient_grad_x = []
-data_orient_grad_y = []
-data_orient_grad_z = []
-
-data_ang_x = []
-data_ang_y = []
-data_ang_z = []
-
-
-
-
+data_ang_x, data_ang_y, data_ang_z = [], [], []
 
 
 
 ser = serial.Serial(port='COM4', baudrate=2000000, timeout=2)
 
-sensvalraw = ser.readline()
+ser.readline()
 
 start = time.time()
-
 readserport()
-
 end = time.time()
-
-print(data_lin_x)
-print(data_lin_y)
-print(data_lin_z)
-
 ser.close()
 
+fct_def.writefile(sensvalstrip_save)
 
-
-plt.figure()
-plt.subplot(311)
-plt.ylim(-15, 15)
-plt.plot(data_lin_kor_x)
-
-plt.subplot(312)
-plt.ylim(-15, 15)
-plt.plot(data_lin_kor_y)
-
-plt.subplot(313)
-plt.ylim(-15, 15)
-plt.plot(data_lin_kor_z)
+fct_def.pltdata(data_lin_z,-15,15,2,1,1)
+fct_def.pltdata(data_lin_x,-15,15,2,1,2)
+plt.show()
 
 print(end - start)
-
-
-
-plt.show()
