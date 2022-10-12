@@ -17,6 +17,13 @@ import fct_def
 # --> Datenspeichern
 # CSV?
 # -
+# --> Ablauf??
+# einlesen bis serial port leer --> while
+# dann daten verarbeiten, speichern, plotten, usw.
+# wieder einlesen
+# -
+# datenauflösung bei arduino verändern / 100hz??
+# samplerate bei plot ausgeben
 
 sensvalstrip_save = []
 
