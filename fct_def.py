@@ -6,7 +6,6 @@ def writefile(data_to_write):
         f.writelines('\n'.join(data_to_write))
 
 
-def pltdata(data_to_plot, ylim_low, ylim_high,subplots,pltx, plty):
-    plt.subplot(subplots,pltx,plty)
-    plt.ylim(ylim_low,ylim_high)
-    plt.plot(data_to_plot)
+def readfile():
+    with open('test', 'r', encoding='UTF8') as f:
+        return(f.read())
