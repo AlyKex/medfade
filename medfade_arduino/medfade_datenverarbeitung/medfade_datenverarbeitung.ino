@@ -3,13 +3,10 @@
 #include <Adafruit_Sensor.h>
 #include <Adafruit_BNO055.h>
 #include <utility/imumaths.h>
-#include <MsTimer2.h>
 
 unsigned long mySTime;
 
 String acccheck = "abc";
-
-uint16_t BNO055_SAMPLERATE_DELAY_MS = 10 ;
 
 
 Adafruit_BNO055 bno = Adafruit_BNO055(55, 0x28);
@@ -33,16 +30,13 @@ if (!bno.begin())
 while(true){
      uint8_t system, gyro, accel, mag = 0;
      bno.getCalibration(&system, &gyro, &accel, &mag);
-     Serial.println("calibrating");
      Serial.println(system);
-     if (system == 3){
+     if (system == 2){
       Serial.println(acccheck);
       break;
      }
 }
 
-  //MsTimer2::set(1000*10, eloop);
-  //MsTimer2::start();
 
   mySTime = millis();
   
@@ -60,10 +54,9 @@ void loop() {
   printEvent(&accelerometerData);
   printEvent(&linearAccelData);
 
-  delay(BNO055_SAMPLERATE_DELAY_MS);
   if(millis() - mySTime > 10000){
       acccheck = "et";
-      //Serial.println("\nExit Time:");
+
       Serial.print(acccheck);Serial.print(" ");
       Serial.println(millis() - mySTime);
       exit(0);
@@ -95,13 +88,4 @@ void printEvent(sensors_event_t* event) {
   Serial.print(x, 2); Serial.print(" ");
   Serial.print(y, 2); Serial.print(" ");
   Serial.println(z, 2);
-}
-
-void eloop()
-{ 
-  acccheck = "et";
-  //Serial.println("\nExit Time:");
-  Serial.print(acccheck);Serial.print(" ");
-  Serial.println(millis() - mySTime);
-  exit(0);
 }
