@@ -1,7 +1,6 @@
 import time
 import serial
 
-
 def writefile(data_to_write):
     cTime = time.strftime("%d_%m_%Y__%H_%M_%S")
     with open(F"{cTime}", 'w', encoding='UTF8') as f:

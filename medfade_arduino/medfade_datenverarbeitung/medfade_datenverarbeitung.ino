@@ -3,11 +3,16 @@
 #include <Adafruit_Sensor.h>
 #include <Adafruit_BNO055.h>
 #include <utility/imumaths.h>
+#include <MsTimer2.h>
+
+
+
 
 unsigned long mySTime;
 
 String acccheck = "abc";
 
+int i = 1;
 
 Adafruit_BNO055 bno = Adafruit_BNO055(55, 0x28);
 
@@ -15,6 +20,8 @@ Adafruit_BNO055 bno = Adafruit_BNO055(55, 0x28);
 void setup() {
 
    pinMode(12, OUTPUT);
+
+  
 
 
     
@@ -27,6 +34,7 @@ if (!bno.begin())
     while (1);
   }
 
+
 while(true){
      uint8_t system, gyro, accel, mag = 0;
      bno.getCalibration(&system, &gyro, &accel, &mag);
@@ -37,13 +45,19 @@ while(true){
      }
 }
 
+  MsTimer2::set(10, accw);
+  MsTimer2::start();
+
 
   mySTime = millis();
   
-
 }
 
 void loop() {
+
+
+  if(i == 1){
+    
   sensors_event_t orientationData , angVelocityData , linearAccelData, accelerometerData;
   
   bno.getEvent(&orientationData, Adafruit_BNO055::VECTOR_EULER);
@@ -53,7 +67,12 @@ void loop() {
   printEvent(&orientationData);
   printEvent(&accelerometerData);
   printEvent(&linearAccelData);
+  i = 0;
+  }
 
+  
+
+  
   if(millis() - mySTime > 10000){
       acccheck = "et";
 
@@ -88,4 +107,9 @@ void printEvent(sensors_event_t* event) {
   Serial.print(x, 2); Serial.print(" ");
   Serial.print(y, 2); Serial.print(" ");
   Serial.println(z, 2);
+}
+
+void accw()
+{
+  i = 1;
 }

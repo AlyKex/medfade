@@ -60,3 +60,5 @@ plt.plot(data_orient_grad_z, linewidth=1)
 
 plt.show()
 
+print(len(data_lin_sum))
+print(len(data_lin_kor_sum))

@@ -1,12 +1,16 @@
 import fct_def
 import matplotlib.pyplot as plt
+import numpy as np
 
-readfile = fct_def.readfile("16_11_2022__11_15_02")
+readfile = fct_def.readfile("21_11_2022__14_17_04__3_langer_fall")
+#21_11_2022__13_41_43
+#21_11_2022__13_43_19___1_langer_fall
+#21_11_2022__14_17_04__3_langer_fall
 
 
 
 data_lin_x, data_lin_y, data_lin_z, data_lin_sum, data_lin_kor_x, data_lin_kor_y, data_lin_kor_z, data_lin_kor_sum, data_orient_grad_x, data_orient_grad_y, data_orient_grad_z, data_et = fct_def.printfile(readfile)
-
+'''''''''
 ylim_data_lin = sorted(data_lin_sum)
 plt.style.use("ggplot")
 plt.subplot(3,1,1)
@@ -30,5 +34,20 @@ plt.ylim(-360,360)
 plt.plot(data_orient_grad_x, linewidth=1)
 plt.plot(data_orient_grad_y, linewidth=1)
 plt.plot(data_orient_grad_z, linewidth=1)
+
+#plt.show()
+'''''
+data_fft = np.fft.rfft(data_lin_kor_x)
+data_freq = np.fft.fftfreq(data_fft.size)
+data_frequ = np.fft.fftshift(data_freq)
+
+plt.subplot(3,1,1)
+plt.plot(data_lin_kor_x)
+
+plt.subplot(3,1,2)
+plt.plot(data_frequ, data_fft.real)
+
+plt.subplot(3,1,3)
+plt.plot(data_frequ, data_fft.imag)
 
 plt.show()
