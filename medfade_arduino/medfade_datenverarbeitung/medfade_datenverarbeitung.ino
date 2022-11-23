@@ -39,7 +39,7 @@ while(true){
      uint8_t system, gyro, accel, mag = 0;
      bno.getCalibration(&system, &gyro, &accel, &mag);
      Serial.println(system);
-     if (system == 2){
+     if (system == 3 || system == 2){
       Serial.println(acccheck);
       break;
      }

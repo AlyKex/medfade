@@ -32,7 +32,7 @@ readfile = []
 start, data_lin_x, data_lin_y, data_lin_z, data_lin_sum, data_lin_kor_x, data_lin_kor_y, data_lin_kor_z, data_lin_kor_sum, data_orient_grad_x, data_orient_grad_y, data_orient_grad_z, data_et, sensvalstrip_save = fct_def.readserport()
 end = time.time()
 
-cTime = fct_def.writefile(sensvalstrip_save)
+
 
 ylim_data_lin = sorted(data_lin_sum)
 plt.style.use("ggplot")
@@ -59,6 +59,11 @@ plt.plot(data_orient_grad_y, linewidth=1)
 plt.plot(data_orient_grad_z, linewidth=1)
 
 plt.show()
+
+fsave = input("file speichern?")
+if "y" in fsave:
+    fct_def.writefile(sensvalstrip_save)
+
 
 print(len(data_lin_sum))
 print(len(data_lin_kor_sum))
