@@ -46,7 +46,7 @@ while(true){
 }
 
   MsTimer2::set(10, accw);
-  MsTimer2::start();
+  MsTimer2::start(); 
 
 
   mySTime = millis();
@@ -73,7 +73,7 @@ void loop() {
   
 
   
-  if(millis() - mySTime > 10000){
+  if(millis() - mySTime > 30000){
       acccheck = "et";
 
       Serial.print(acccheck);Serial.print(" ");
