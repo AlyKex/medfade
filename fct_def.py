@@ -67,7 +67,7 @@ def readserport():
 
     sensvalstrip_save = []
 
-    ser = serial.Serial(port='COM4', baudrate=2000000, timeout=1)
+    ser = serial.Serial(port='COM7', baudrate=2000000, timeout=1)
     while True:
         sensvalraw = ser.readline()
         sensvalstring = sensvalraw.decode()

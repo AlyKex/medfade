@@ -40,7 +40,7 @@ while(true){
      bno.getCalibration(&system, &gyro, &accel, &mag);
      Serial.println(system);
      if (system == 3 || system == 2){
-      Serial.println(acccheck);
+      
       break;
      }
 }
@@ -73,7 +73,7 @@ void loop() {
   
 
   
-  if(millis() - mySTime > 30000){
+  if(millis() - mySTime > 10000){
       acccheck = "et";
 
       Serial.print(acccheck);Serial.print(" ");
