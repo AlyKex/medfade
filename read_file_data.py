@@ -1,8 +1,7 @@
 import fct_def
 import matplotlib.pyplot as plt
-import numpy as np
 
-readfile = fct_def.readfile("28_11_2022__14_22_15_hinfallen_hinten_weiche_matte_simon")
+readfile = fct_def.readfile("28_11_2022__14_17_58_hinfallen_vorne_weiche_matte")
 
 
 
@@ -13,6 +12,7 @@ data_lin_x, data_lin_y, data_lin_z, data_lin_sum, data_lin_kor_x, data_lin_kor_y
 ylim_data_lin = sorted(data_lin_sum)
 plt.style.use("ggplot")
 plt.subplot(3,1,1)
+#plt.xticks(range(0,len(data_lin_sum)))
 plt.ylim(ylim_data_lin[0] * 1.1, max(data_lin_sum)*1.1)
 #plt.plot(data_lin_x,linewidth=1)
 #plt.plot(data_lin_y,linewidth=1)
@@ -22,11 +22,12 @@ plt.plot(data_lin_sum,linewidth=1)
 
 ylim_data_lin_kor = sorted(data_lin_kor_sum)
 plt.subplot(3,1,2)
+plt.xticks(range(0,50))
 plt.ylim(ylim_data_lin_kor[0]*1.1, max(data_lin_kor_sum)*1.1)
 #plt.plot(data_lin_kor_x,linewidth=1)
 #plt.plot(data_lin_kor_y,linewidth=1)
 #plt.plot(data_lin_kor_z,linewidth=1)
-plt.plot(data_lin_kor_sum,linewidth=1)
+plt.plot(data_lin_kor_sum[550:600],linewidth=1)
 
 plt.subplot(3,1,3)
 plt.ylim(-360,360)

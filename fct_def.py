@@ -108,6 +108,7 @@ def readserport():
             data_orient_grad_x.append(float(sensvalsplit[0]))
             data_orient_grad_y.append(float(sensvalsplit[1]))
             data_orient_grad_z.append(float(sensvalsplit[2]))
+
         elif "et" in sensvalsplit:
             data_et.append(float(sensvalsplit[1]))
             break
