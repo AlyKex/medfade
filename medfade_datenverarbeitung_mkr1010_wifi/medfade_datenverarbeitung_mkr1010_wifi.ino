@@ -23,7 +23,7 @@ Serial.begin(2000000);
   }
 
   
-
+     
      delay(5000);
      Serial.println(acccheck);
      delay(1000);
@@ -65,13 +65,13 @@ void loop() {
     }
 */
 
-
+/*
       if (IMU.eulerAnglesAvailable()) {
       IMU.readEulerAngles(x, y, z);
       acccheck = "ow";
       printEvent(x, y, z);
      }
-
+*/
      
 
      
@@ -96,13 +96,16 @@ void printEvent(float x, float y, float z) {
 }
 
 void compare(double acc_array[6]){
-  /* //Ausgabe von Überprüfwerten
+   //Ausgabe von Überprüfwerten
   Serial.print("normal:");
   Serial.print(" ");
   Serial.print(acc_array[5]);
   Serial.print(" ");
-  Serial.println(acc_array[5] - acc_array[0]);
-  */
+  Serial.print(acc_array[5] - acc_array[0]);
+  Serial.print(" ");
+  Serial.println(50);
+  
+  
   if(acc_array[5] - acc_array[0] >= 50){
     Serial.println("acc threshhold erreicht");
     
