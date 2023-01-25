@@ -1,7 +1,7 @@
 import fct_def
 import matplotlib.pyplot as plt
 
-readfile = fct_def.readfile("28_11_2022__14_27_35_laufen_30sec_simoin")
+readfile = fct_def.readfile("28_11_2022__14_22_15_hinfallen_hinten_weiche_matte_simon")
 #28_11_2022__14_22_15_hinfallen_hinten_weiche_matte_simon
 #28_11_2022__14_17_58_hinfallen_vorne_weiche_matte
 #23_11_2022__10_54_27_gehen_normal
@@ -82,7 +82,7 @@ plt.title("Beschleunigungsverlauf")
 plt.xlabel("Absolutwert der Beschleunigungen")
 plt.ylabel("Beschleunigung in m/s^2")
 
-
+print(data_lin_sum_abs)
 plt.plot(data_lin_sum_abs, linewidth=1)
 plt.plot(linelow, linewidth=1, color="red")
 plt.plot(linehigh, linewidth=1, color="purple")

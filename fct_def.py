@@ -114,3 +114,39 @@ def readserport():
             break
     ser.close()
     return start, data_lin_x, data_lin_y, data_lin_z, data_lin_sum, data_lin_kor_x, data_lin_kor_y, data_lin_kor_z, data_lin_kor_sum, data_orient_grad_x, data_orient_grad_y, data_orient_grad_z, data_et, sensvalstrip_save
+
+def readserport_mkr():
+
+    acc_sum = []
+    vel_gyro = []
+    sensvalstrip_save = []
+
+
+    ser = serial.Serial(port='COM7', baudrate=2000000, timeout=1)
+    while True:
+        sensvalraw = ser.readline()
+        sensvalstring = sensvalraw.decode()
+
+        print(sensvalstring)
+        if "abc" in sensvalstring:
+            break
+
+    while True:
+
+
+        sensvalraw = ser.readline()
+        sensvalstring = sensvalraw.decode()
+        sensvalstrip = sensvalstring.strip()
+
+        sensvalstrip_save.append(F"{sensvalstrip},")
+
+        if "ex" in sensvalstrip:
+            break
+
+        sensvalsplit = sensvalstrip.split()
+
+        acc_sum.append(float(sensvalsplit[0]))
+        vel_gyro.append(float(sensvalsplit[1]))
+
+    ser.close()
+    return acc_sum, vel_gyro, sensvalstrip_save
