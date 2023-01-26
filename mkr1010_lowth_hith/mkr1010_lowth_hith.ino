@@ -36,7 +36,7 @@ void loop()
     compare(lin_acc, gyro_vel, uhTime, ohTime);
   }
 
-  if (millis()-sTime >= 10000)
+  if (millis()-sTime >= 15000)
   {
   Serial.println("ex");
   exit(0);
