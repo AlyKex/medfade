@@ -150,3 +150,24 @@ def readserport_mkr():
 
     ser.close()
     return acc_sum, vel_gyro, sensvalstrip_save
+
+def print_mkr(readfile):
+
+    acc_sum = []
+    vel_gyro = []
+
+    data_split = readfile.split(",")
+
+    for i in range(len(data_split)):
+        data_strip = data_split[i].strip()
+        data = data_strip.split()
+
+        if "ex" in data:
+            break
+
+        acc_sum.append(float(data[0]))
+        vel_gyro.append(float(data[1]))
+
+    return acc_sum, vel_gyro
+
+
