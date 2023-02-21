@@ -36,7 +36,7 @@ void loop()
     compare(lin_acc, gyro_vel, uhTime, ohTime);
   }
 
-  if (millis()-sTime >= 15000)
+  if (millis()-sTime >= 30000)
   {
   Serial.println("ex");
   exit(0);
@@ -66,7 +66,7 @@ void compare(double lin_acc, long gyro_vel, long &uhTime, long &ohTime)
   }
   
   unsigned long tTime = millis();
-  if (lin_acc >= 45 && tTime - uhTime <= 500)
+  if (lin_acc >= 45 && tTime - uhTime <= 50)
   {
     //Serial.println("oberer threshold erreicht");
     ohTime = millis();
