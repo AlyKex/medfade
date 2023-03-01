@@ -8,8 +8,8 @@ def writefile(data_to_write):
     return cTime
 
 
-def readfile(cTime):
-    with open(F"{cTime}", 'r', encoding='UTF8') as f:
+def readfile(fname):
+    with open(F"{fname}", 'r', encoding='UTF8') as f:
         return (f.read())
 
 
