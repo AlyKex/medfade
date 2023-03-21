@@ -2,15 +2,16 @@ import fct_def
 import matplotlib.pyplot as plt
 import tkinter as tk
 from tkinter import filedialog
-import csv
 import os
 
-directory = 'Testaufnahmen_Neu'
 
 
 
 acc_sum = []
 vel_gyro = []
+heading = []
+roll = []
+pitch = []
 
 lth = []
 uth = []
@@ -30,7 +31,7 @@ file_path = filedialog.askopenfilename()
 
 readfile = fct_def.readfile(file_path)
 
-acc_sum, vel_gyro = fct_def.print_mkr(readfile)
+acc_sum, vel_gyro, heading, roll, pitch= fct_def.print_mkr_mega(readfile)
 
 for i in range(len(acc_sum)):
     if acc_sum[i] <= 2.5:
@@ -56,52 +57,24 @@ for i in range(len(vel_gyro)):
         ugv_last.append(i)
 
 
-plt.subplot(3,1,1)
+plt.subplot(5,1,1)
 plt.plot(acc_sum, linewidth = 0.5)
 
-plt.subplot(3,1,2)
+plt.subplot(5,1,2)
 plt.plot(vel_gyro, linewidth = 0.5)
 
-plt.subplot(3,1,3)
-plt.plot(lth, linewidth = 0.5)
-plt.plot(uth, linewidth = 0.5)
-plt.plot(ugv, linewidth = 0.5)
+plt.subplot(5,1,3)
+plt.plot(heading, linewidth = 0.5)
 
+plt.subplot(5,1,4)
+plt.plot(roll, linewidth = 0.5)
 
-if sum(uth_last) > 0:
-    if min(uth_last) - max(lth_last) <= 25:
-        if min(ugv_last) - max(lth_last) <= 25:
-            print("ein fall wurde erkannt")
-            fb = [min(uth_last) - 100, min(uth_last) + 100]
+plt.subplot(5,1,5)
+plt.plot(pitch, linewidth = 0.5)
 
-
-print("Summe der Samples im LTH Bereich")
-print((sum(lth)))
-print("Summe der Samples im UTH Bereich")
-print(sum(uth))
-print("Letzer Sample im LTH Bereich")
-print(max(lth_last))
-print("Erster Sample im UTH Bereich")
-print(min(uth_last))
-print("Erster Sample im UGV Bereich")
-print(min(ugv_last))
-print("Maximale Beschleunigung im Sample")
-print(max(acc_sum))
-print("Minimale Beschleunigung im Sample")
-print(min(acc_sum))
-print("Erster Fallbereich")
-print(min(lth_last))
-print("Letzter Fallbereich")
-print(max(uth_last))
-print("Fallbereich")
-print(fb)
-
+plt.show()
 
 file_path.strip()
 
 file_path = os.path.basename(os.path.normpath(file_path))
-
-
-plt.show()
-
 exit()

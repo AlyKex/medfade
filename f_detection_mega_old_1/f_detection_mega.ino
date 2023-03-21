@@ -3,25 +3,9 @@
 #include <Adafruit_BNO055.h>
 #include <utility/imumaths.h>
 #include <MsTimer2.h>
-#include "Adafruit_FONA.h"
-#include "Secrets.h"
-#include "Fona.h"
-#include "BNO055.h"
-
-#if (defined(__AVR__) || defined(ESP8266)) && !defined(__AVR_ATmega2560__)
-
-#include <SoftwareSerial.h>
-
-SoftwareSerial fonaSS = SoftwareSerial(SECRET_TX, SECRET_RX);
-SoftwareSerial *fonaSerial = &fonaSS;
-#else
-HardwareSerial *fonaSerial = &Serial1;
-#endif
-
-Adafruit_FONA fona = Adafruit_FONA(SECRET_RST);
 
 
-bool fallstate = false;
+
 long uhTime, ohTime, sTime;
 
 String acccheck = "abc";
@@ -35,17 +19,13 @@ Adafruit_BNO055 bno = Adafruit_BNO055(55, 0x28);
 
 void setup() {
 
-  Serial.begin(SECRET_BAUD);
-  Serial.println(F("FONA basic test"));
-  Serial.println(F("Initializing....(May take 3 seconds)"));
+   pinMode(12, OUTPUT);
 
-  fonaSerial->begin(SECRET_FBAUD);
-  if (!fona.begin(*fonaSerial)) {
-    Serial.println(F("Couldn't find FONA"));
-    while (1)
-      ;
-  }
+  
 
+
+    
+Serial.begin(2000000);
 
 if (!bno.begin())
   {
@@ -54,13 +34,11 @@ if (!bno.begin())
     while (1);
   }
 
-  FonaStartUp(fona);
-
   delay(2000);
   sTime = millis();
   Serial.println("abc");
 
-  
+
 
   MsTimer2::set(10, accw);
   MsTimer2::start(); 
@@ -88,14 +66,13 @@ void loop() {
 
   i = 0;
   }
-
-  /*
+  
   if (millis()-sTime >= 15000)
   {
   Serial.println("ex");
   exit(0);
   }
-*/
+
 
   
 
@@ -144,22 +121,21 @@ void compare(double lin_acc, long gyro_vel, long &uhTime, long &ohTime)
   
   
   
-  if(lin_acc <= 3.0)
+  if(lin_acc <= 2.0)
   {
     //Serial.println(" untereracc threshhold erreicht");
     uhTime = millis();
   }
   
   unsigned long tTime = millis();
-  if (lin_acc >= 30 && tTime - uhTime <= 500)
+  if (lin_acc >= 45 && tTime - uhTime <= 70)
   {
     //Serial.println("oberer threshold erreicht");
     ohTime = millis();
     
-    if(gyro_vel >= 100)
+    if(gyro_vel >= 300)
     {
-          Serial.println("sturz erkannt");
-          SendFall(fona);
+      //Serial.println("sturz erkannt");
     }
 
       

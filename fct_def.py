@@ -1,5 +1,8 @@
 import time
 import serial
+import os
+import fct_def
+import csv
 
 def writefile(data_to_write):
     cTime = time.strftime("%d_%m_%Y__%H_%M_%S")
@@ -171,3 +174,81 @@ def print_mkr(readfile):
     return acc_sum, vel_gyro
 
 
+def readserport_mkr_mega():
+
+    sensvalstrip_save = []
+
+
+    ser = serial.Serial(port='COM7', baudrate=2000000, timeout=1)
+    while True:
+        sensvalraw = ser.readline()
+        sensvalstring = sensvalraw.decode()
+
+        print(sensvalstring)
+        if "start" in sensvalstring:
+            break
+
+    while True:
+
+
+        sensvalraw = ser.readline()
+        sensvalstring = sensvalraw.decode()
+        sensvalstrip = sensvalstring.strip()
+
+        sensvalstrip_save.append(F"{sensvalstrip},")
+
+        if "ex" in sensvalstrip:
+            break
+
+
+
+    ser.close()
+    return sensvalstrip_save
+
+
+def print_mkr_mega(readfile):
+
+    acc_sum = []
+    vel_gyro = []
+    heading = []
+    roll = []
+    pitch = []
+
+    data_split = readfile.split(",")
+
+    for i in range(len(data_split)):
+        data_strip = data_split[i].strip()
+        data = data_strip.split()
+
+        if "ex" in data:
+            break
+
+        acc_sum.append(float(data[0]))
+        vel_gyro.append(float(data[1]))
+        heading.append(float(data[2]))
+        roll.append(float(data[3]))
+        pitch.append(float(data[4]))
+
+    return acc_sum, vel_gyro, heading, roll, pitch
+
+
+def analyse_csv(directory, name):
+
+    name += ".txt"
+
+    with open(name, mode='w', newline='') as f:
+        writer = csv.writer(f)
+
+
+        for filename in os.listdir(directory):
+            f = os.path.join(directory, filename)
+            if os.path.isfile(f):
+
+                readfile = fct_def.readfile(f)
+                acc_sum, vel_gyro, heading, roll, pitch = fct_def.print_mkr_mega(readfile)
+
+                f.strip()
+                f = os.path.basename(os.path.normpath(f))
+                f = name
+                csv_file_data = f'{max(acc_sum)}; {min(acc_sum)}; {max(vel_gyro)};'
+                writer.writerow([csv_file_data])

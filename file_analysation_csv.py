@@ -79,4 +79,8 @@ with open('medfades_Data.txt', mode='w', newline='') as f:
 
 
 
-exit()
+
+with open('medfades_Data.txt', mode='a', newline='') as f:
+    writer = csv.writer(f)
+    writer.writerow(["Test112313132;" "Max Acc;" "A. Samples in UTH;" "erster UTH;" "letzter UTH;" "Min Acc;" "A. Samples in LTH;" "erster LTH;" "letzter LTH;" "Max GyVel;" "A. Samples in UGV;" "erster UGV;" "letzter UGV;" "Fall;" "Fallbereich;" "Fallbereich;"])
+

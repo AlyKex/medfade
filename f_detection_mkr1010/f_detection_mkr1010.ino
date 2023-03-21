@@ -6,6 +6,8 @@ long uhTime, ohTime, sTime;
 
 String acccheck = "abc";
 
+float hrp[6];
+
 float x, y, z, xgyro, ygyro, zgyro;
 
 void setup() 
@@ -17,10 +19,11 @@ void setup()
     Serial.println("Failed to initialize IMU!");
     while (1);
   }
-  delay(5000);
-  sTime = millis();
-  Serial.println("abc");
 
+  delay(5000);
+  standard(hrp);
+ sTime = millis();
+ Serial.println("start");
 }
 
 void loop() 
@@ -29,22 +32,26 @@ void loop()
   {
     IMU.readAcceleration(x, y, z);
     IMU.readGyroscope(xgyro, ygyro, zgyro);
-    
+    IMU.readEulerAngles(hrp[3], hrp[4], hrp[5]);
+
     lin_acc = abs(x) + abs(y) + abs(z);
     gyro_vel = abs(xgyro) + abs(ygyro) + abs(zgyro);
     
-    compare(lin_acc, gyro_vel, uhTime, ohTime);
+    compare(lin_acc, gyro_vel, uhTime, ohTime, hrp);
   }
-
-  if (millis()-sTime >= 30000)
+  
+  /*
+  if (millis()-sTime >= 15000)
   {
   Serial.println("ex");
   exit(0);
   }
+  */
+  
 }
 
 
-void compare(double lin_acc, long gyro_vel, long &uhTime, long &ohTime)
+void compare(double lin_acc, long gyro_vel, long &uhTime, long &ohTime, float *hrp)
 {
   /*Ausgabe von Überprüfwerten
   Serial.print(lin_acc);
@@ -54,28 +61,62 @@ void compare(double lin_acc, long gyro_vel, long &uhTime, long &ohTime)
   Serial.println(3);
   */
   Serial.print(lin_acc);
+  /*
   Serial.print(" ");
-  Serial.println(gyro_vel);
+  Serial.print(gyro_vel);
+  */
   
+  Serial.print(" ");
+  Serial.print(hrp[3] - hrp[0]);
+  Serial.print(" ");
+  Serial.print(hrp[4] - hrp[1]);
+  Serial.print(" ");
+  Serial.println(hrp[5] - hrp[2]);
   
+
+  /*
+  Serial.print(" ");
+  Serial.print(hrp[3]);
+  Serial.print(" ");
+  Serial.print(hrp[4]);
+  Serial.print(" ");
+  Serial.println(hrp[5]);
+  */
   
   if(lin_acc <= 3)
   {
-    //Serial.println(" untereracc threshhold erreicht");
     uhTime = millis();
   }
   
   unsigned long tTime = millis();
-  if (lin_acc >= 45 && tTime - uhTime <= 50)
+  if (lin_acc >= 35 && tTime - uhTime <= 50)
   {
-    //Serial.println("oberer threshold erreicht");
     ohTime = millis();
     
     if(gyro_vel >= 300)
     {
-      //Serial.println("sturz erkannt");
+      if(hrp[3]-hrp[0] >= 30 || hrp[3]-hrp[0] <= -30 || hrp[4]-hrp[1] >= 30 || hrp[4]-hrp[1] <= -30 || hrp[5]-hrp[2] >= 30 || hrp[5]-hrp[2] <= -30){
+        //Serial.println("sensor gedreht");
+        //Serial.println("ex");
+        exit(0);
+      }
     }
 
-      
+       
   }
+}
+
+float standard(float *hrp){
+  float heading, roll, pitch;
+  for(int i=0;i<=500;i){
+    if(IMU.eulerAnglesAvailable())
+        IMU.readEulerAngles(heading, roll, pitch);
+        hrp[0] = hrp[0] + heading;
+        hrp[1] = hrp[1] + roll;
+        hrp[2] = hrp[2] + pitch;
+        i++;    
+  }
+  hrp[0] = hrp[0]/500;
+  hrp[1] = hrp[1]/500;
+  hrp[2] = hrp[2]/500;
 }
