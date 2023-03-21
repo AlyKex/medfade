@@ -89,7 +89,7 @@ void compare(double lin_acc, long gyro_vel, long &uhTime, long &ohTime, float *h
   }
   
   unsigned long tTime = millis();
-  if (lin_acc >= 35 && tTime - uhTime <= 50)
+  if (lin_acc >= 35 && tTime - uhTime <= 200)
   {
     ohTime = millis();
     

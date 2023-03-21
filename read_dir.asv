@@ -1,0 +1,9 @@
+listing  = dir('*.txt');
+plocation = zeros(length(listing),1);
+
+f_name = listing(2).name;
+
+my_v_read(f
+
+
+

@@ -234,6 +234,10 @@ def print_mkr_mega(readfile):
 
 def analyse_csv(directory, name):
 
+    lth_last = []
+    uth_last = []
+    head_d, roll_d, pitch_d, lu_d = 0, 0, 0, 0
+
     name += ".txt"
 
     with open(name, mode='w', newline='') as f:
@@ -247,8 +251,30 @@ def analyse_csv(directory, name):
                 readfile = fct_def.readfile(f)
                 acc_sum, vel_gyro, heading, roll, pitch = fct_def.print_mkr_mega(readfile)
 
+                for i in range(len(acc_sum)):
+                    if acc_sum[i] <= 3.0:
+                        lth_last.append(i)
+
+                    if acc_sum[i] >= 60:
+                        uth_last.append(i)
+
+
+                if len(uth_last) > 0:
+                    uth_t = uth_last[0]
+                    head_d = abs(heading[uth_t] - heading[0])
+                    roll_d = abs(roll[uth_t] - roll[0])
+                    pitch_d = abs(pitch[uth_t] - pitch[0])
+                    if len(lth_last) > 0:
+                        lu_d = uth_last[0] - lth_last[len(lth_last) - 1]
+
+                    else:
+                        lu_d = 0
+
+                else:
+                    head_d, roll_d, pitch_d = 0, 0, 0
+
                 f.strip()
                 f = os.path.basename(os.path.normpath(f))
                 f = name
-                csv_file_data = f'{max(acc_sum)}; {min(acc_sum)}; {max(vel_gyro)};'
+                csv_file_data = f'{max(acc_sum)}; {min(acc_sum)}; {max(vel_gyro)}; {lu_d}; {head_d}; {roll_d}; {pitch_d};'
                 writer.writerow([csv_file_data])
