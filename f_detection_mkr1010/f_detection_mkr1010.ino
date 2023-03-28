@@ -60,19 +60,19 @@ void compare(double lin_acc, long gyro_vel, long &uhTime, long &ohTime, float *h
   Serial.print(" ");
   Serial.println(3);
   */
-  Serial.print(lin_acc);
+  Serial.println(lin_acc);
   /*
   Serial.print(" ");
   Serial.print(gyro_vel);
   */
-  
+  /*
   Serial.print(" ");
   Serial.print(hrp[3] - hrp[0]);
   Serial.print(" ");
   Serial.print(hrp[4] - hrp[1]);
   Serial.print(" ");
   Serial.println(hrp[5] - hrp[2]);
-  
+  */
 
   /*
   Serial.print(" ");
@@ -83,13 +83,13 @@ void compare(double lin_acc, long gyro_vel, long &uhTime, long &ohTime, float *h
   Serial.println(hrp[5]);
   */
   
-  if(lin_acc <= 3)
+  if(lin_acc <= 30)
   {
     uhTime = millis();
   }
   
   unsigned long tTime = millis();
-  if (lin_acc >= 35 && tTime - uhTime <= 200)
+  if (lin_acc >= 50 && tTime - uhTime <= 200)
   {
     ohTime = millis();
     
