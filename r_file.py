@@ -81,8 +81,8 @@ print("bei fall / max acc first")
 print(uth_last[0])
 print(heading[abc])
 print(roll[abc])
-print(pitch[abc])
 
+print(pitch[abc])
 
 
 print("differenz normal und max acc first")

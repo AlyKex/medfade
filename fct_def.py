@@ -3,6 +3,7 @@ import serial
 import os
 import fct_def
 import csv
+import matplotlib.pyplot as plt
 
 def writefile(data_to_write):
     cTime = time.strftime("%d_%m_%Y__%H_%M_%S")
@@ -252,10 +253,10 @@ def analyse_csv(directory, name):
                 acc_sum, vel_gyro, heading, roll, pitch = fct_def.print_mkr_mega(readfile)
 
                 for i in range(len(acc_sum)):
-                    if acc_sum[i] <= 3.0:
+                    if acc_sum[i] <= 2.8:
                         lth_last.append(i)
 
-                    if acc_sum[i] >= 60:
+                    if acc_sum[i] >= 65:
                         uth_last.append(i)
 
 
@@ -278,3 +279,34 @@ def analyse_csv(directory, name):
                 f = name
                 csv_file_data = f'{max(acc_sum)}; {min(acc_sum)}; {max(vel_gyro)}; {lu_d}; {head_d}; {roll_d}; {pitch_d};'
                 writer.writerow([csv_file_data])
+
+def analyse_csv_old(directory, name):
+    name += ".txt"
+
+    lth_last = []
+    uth_last = []
+    bp_test = []
+
+    with open(name, mode='w', newline='') as f:
+        writer = csv.writer(f)
+
+        for filename in os.listdir(directory):
+            f = os.path.join(directory, filename)
+            if os.path.isfile(f):
+
+                readfile = fct_def.readfile(f)
+                acc_sum, vel_gyro = fct_def.print_mkr(readfile)
+
+                for i in range(len(acc_sum)):
+                    if acc_sum[i] <= 2.8:
+                        lth_last.append(i)
+
+                    if acc_sum[i] >= 65:
+                        uth_last.append(i)
+
+                f.strip()
+                f = os.path.basename(os.path.normpath(f))
+                f = name
+                csv_file_data = f'{max(acc_sum)}; {min(acc_sum)}; {max(vel_gyro)};'
+                writer.writerow([csv_file_data])
+                bp_test.append(min(acc_sum))

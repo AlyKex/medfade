@@ -1,0 +1,37 @@
+orpath = cd
+[file,path] = uigetfile({'*.*'});
+
+npath = path;
+
+cd(npath)
+val = readmatrix(file);
+
+
+plot(val(:,1));
+title('Beschleunigungsverlauf')
+xlabel('Samples [ms]')
+ylabel('Beschleunigung [m/s^2]')
+
+
+
+cd(orpath)
+
+fs = 1000; % in Hz
+
+% Grenzfrequenz des Tiefpassfilters
+fc = 100; % in Hz
+
+% Ordnung des Filters
+order = 4;
+
+% Normalisierte Grenzfrequenz berechnen
+w = fc / (fs/2);
+
+% Tiefpassfilter-Entwurf mit Butterworth-Algorithmus
+[b, a] = butter(order, w, 'low');
+
+% Frequenzgang des Filters plotten
+freqz(b, a);
+
+% Signal filtern
+filtered_signal = filter(b, a, val(:,1);
