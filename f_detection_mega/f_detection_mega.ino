@@ -144,19 +144,19 @@ void compare(double lin_acc, long gyro_vel, long &uhTime, long &ohTime)
   
   
   
-  if(lin_acc <= 3.0)
+  if(lin_acc <= 30)
   {
     //Serial.println(" untereracc threshhold erreicht");
     uhTime = millis();
   }
   
   unsigned long tTime = millis();
-  if (lin_acc >= 30 && tTime - uhTime <= 500)
+  if (lin_acc >= 50 && tTime - uhTime <= 200)
   {
     //Serial.println("oberer threshold erreicht");
     ohTime = millis();
     
-    if(gyro_vel >= 100)
+    if(gyro_vel >= 200)
     {
           Serial.println("sturz erkannt");
           SendFall(fona);
