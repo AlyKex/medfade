@@ -40,11 +40,14 @@ with open('medfades_Data.txt', mode='w', newline='') as f:
             writer.writerow([csv_file_data])
 
 '''
-'''
-fct_def.analyse_csv('Testaaunahmen_neu_neu\hinten_umfallen' , "hinten umfallen")
-fct_def.analyse_csv('Testaaunahmen_neu_neu\calibrations', "kalibrationen")
-fct_def.analyse_csv('Testaaunahmen_neu_neu\gehen', "Gehen")
-fct_def.analyse_csv('Testaaunahmen_neu_neu\sitzen_gehen_sitzen', "sitzen gehen sitzen")
+
+#fct_def.analyse_csv('Testaaunahmen_neu_neu\hinten_umfallen' , "hinten umfallen")
+#fct_def.analyse_csv('Testaaunahmen_neu_neu\calibrations', "kalibrationen")
+#fct_def.analyse_csv('Testaaunahmen_neu_neu\gehen', "Gehen")
+#fct_def.analyse_csv('Testaaunahmen_neu_neu\sitzen_gehen_sitzen', "sitzen gehen sitzen")
 fct_def.analyse_csv('Testaaunahmen_neu_neu\zusammensacken', "zusammensacken")
-'''
-fct_def.analyse_csv_old(r'D:\Desktop\medfade_21_03\medfade\Testaufnahmen_Neu\zusammensacken_old', "hinten_umfallen_old")
+
+#fct_def.analyse_csv_old(r'D:\Desktop\medfade_21_03\medfade\Testaufnahmen_Neu\umfallen_hinten_old', "hinten_umfallen_old")
+#fct_def.analyse_csv_old(r'D:\Desktop\medfade_21_03\medfade\Testaufnahmen_Neu\sitze_gehen_sitzen_old', "sitze_gehen_sitzen_old")
+#fct_def.analyse_csv_old(r'D:\Desktop\medfade_21_03\medfade\Testaufnahmen_Neu\zusammensacken_old', "zusammensacken_old")
+

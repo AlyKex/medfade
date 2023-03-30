@@ -8,6 +8,3 @@ for i=1:length(listing)
     my_v_read(f_name);
 
 end
-
-
-

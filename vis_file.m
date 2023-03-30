@@ -1,4 +1,4 @@
-orpath = cd
+orpath = cd;
 [file,path] = uigetfile({'*.*'});
 
 npath = path;
@@ -9,7 +9,7 @@ val = readmatrix(file);
 ytval = val(:,1);
 plot(ytval);
 title('Beschleunigungsverlauf')
-xlabel('Samples [ms]')
+xlabel('Samples [10 ms]')
 ylabel('Beschleunigung [m/s^2]')
 
 

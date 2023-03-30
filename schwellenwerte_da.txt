@@ -1,0 +1,7 @@
+anomalen bewegungen
+oberer schwellenwert beschl 65 + 55 --> 120/2 = 60
+unterer schwellenwert beschl 2.8 + 2.84 --> 5.64/2 = 2.82
+oberer schwellenwert winkel 474 + 328 --> 802/2 = 401
+
+nomale bewegungen
+oberer schwellenwert beschl 
