@@ -31,7 +31,9 @@ file_path = filedialog.askopenfilename()
 
 readfile = fct_def.readfile(file_path)
 
-acc_sum, vel_gyro, heading, roll, pitch= fct_def.print_mkr_mega(readfile)
+#acc_sum, vel_gyro, heading, roll, pitch= fct_def.print_mkr_mega(readfile)
+
+acc_sum, vel_gyro =  fct_def.print_mkr(readfile)
 
 for i in range(len(acc_sum)):
     if acc_sum[i] <= 3.0:
@@ -56,12 +58,12 @@ for i in range(len(vel_gyro)):
         ugv_last.append(i)
 
 
-plt.subplot(5,1,1)
+plt.subplot(2,1,1)
 plt.plot(acc_sum, linewidth = 0.5)
 
-plt.subplot(5,1,2)
+plt.subplot(2,1,2)
 plt.plot(vel_gyro, linewidth = 0.5)
-
+'''
 plt.subplot(5,1,3)
 plt.plot(heading, linewidth = 0.5)
 
@@ -90,6 +92,7 @@ print(uth_last[0] - lth_last[len(lth_last)-1])
 print(abs(heading[abc] - heading[0]))
 print(abs(roll[abc] - roll[0]))
 print(abs(pitch[abc] - pitch[0]))
+'''
 
 plt.show()
 

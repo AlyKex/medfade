@@ -40,13 +40,13 @@ void loop()
     compare(lin_acc, gyro_vel, uhTime, ohTime, hrp);
   }
   
-  /*
+  
   if (millis()-sTime >= 15000)
   {
   Serial.println("ex");
   exit(0);
   }
-  */
+  
   
 }
 
@@ -60,11 +60,10 @@ void compare(double lin_acc, long gyro_vel, long &uhTime, long &ohTime, float *h
   Serial.print(" ");
   Serial.println(3);
   */
-  Serial.println(lin_acc);
-  /*
+  Serial.print(lin_acc);
   Serial.print(" ");
-  Serial.print(gyro_vel);
-  */
+  Serial.println(gyro_vel);
+  
   /*
   Serial.print(" ");
   Serial.print(hrp[3] - hrp[0]);
@@ -97,8 +96,6 @@ void compare(double lin_acc, long gyro_vel, long &uhTime, long &ohTime, float *h
     {
       if(hrp[3]-hrp[0] >= 30 || hrp[3]-hrp[0] <= -30 || hrp[4]-hrp[1] >= 30 || hrp[4]-hrp[1] <= -30 || hrp[5]-hrp[2] >= 30 || hrp[5]-hrp[2] <= -30){
         //Serial.println("sensor gedreht");
-        //Serial.println("ex");
-        exit(0);
       }
     }
 

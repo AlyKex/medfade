@@ -27,26 +27,24 @@ end
 
 subplot(3,1,1);
 hold on;
-plot(val(:,1),'k');
-plot(luth(:,1));
-plot(luth(:,2),'b');
+plot(val(:,1));
+plot(luth(:,1),'m');
+plot(luth(:,2),);
 title('Beschleunigungsverlauf')
 xlabel('Samples [10 ms]')
 ylabel('Beschleunigung [m/s^2]')
 
 subplot(3,1,2)
 hold on;
-area(th(:,1));
-area(th(:,2));
+plot(th(:,1));
+plot(th(:,2),'m');
 ylabel('Threshhold Status');
 xlabel('Samples [10 ms]');
-ylim([0 1.5]);
 
 subplot(3,1,3)
-area(sturz);
+plot(sturz,'r');
 ylabel('Sturzerkennungs Status');
 xlabel('Samples [10 ms]');
-ylim([0 1.5]);
 
 
 
